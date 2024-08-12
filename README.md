@@ -29,5 +29,5 @@ Este proyecto es una aplicación web para el control de gastos personales, desar
 ### Clonar el Repositorio
 
 ```bash
-git clone https://github.com/fertw/springboot-thymeleaf-react.git
-cd springboot-thymeleaf-react
+git clone https://github.com/tu-usuario/tu-repositorio.git
+cd tu-repositorio
