@@ -27,6 +27,10 @@ public class MetodoPago {
 		this.nombre = nombre;
 	}
 
+	public MetodoPago() {
+		super();
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

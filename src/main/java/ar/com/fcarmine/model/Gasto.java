@@ -1,5 +1,7 @@
 package ar.com.fcarmine.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +18,7 @@ public class Gasto {
 	private Long id;
 	private String concepto;
 	private double monto;
-	private String fecha;
+	private LocalDate fecha;
 	
 	@ManyToOne
     @JoinColumn(name = "usuario_id")
@@ -50,10 +52,10 @@ public class Gasto {
 	public void setMonto(double monto) {
 		this.monto = monto;
 	}
-	public String getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
-	public void setFecha(String fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 	public Usuario getUsuario() {
