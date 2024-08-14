@@ -15,6 +15,10 @@
                 <input type="text" th:field="*{nombre}" class="form-control" placeholder="Nombre de la Categoría" required>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
             </div>
+            
+			<div class="mb-3">
+			</div>
+				
 
             <button type="submit" class="btn btn-primary" th:text="${#strings.isEmpty(categoria.id) ? 'Crear' : 'Actualizar'}"></button>
             <a th:href="@{/categorias}" class="btn btn-secondary">Cancelar</a>
