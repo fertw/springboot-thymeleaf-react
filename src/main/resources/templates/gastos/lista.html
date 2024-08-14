@@ -15,7 +15,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Concepto</th>
+                    <th>Descripcion</th>
                     <th>Monto</th>
                     <th>Fecha</th>
                     <th>Usuario</th>
@@ -27,7 +27,7 @@
             <tbody>
                 <tr th:each="gasto : ${gastos}">
                     <td th:text="${gasto.id}">1</td>
-                    <td th:text="${gasto.concepto}">Concepto</td>
+                    <td th:text="${gasto.descripcion}">Concepto</td>
                     <td th:text="${gasto.monto}">100.00</td>
                     <td th:text="${gasto.fecha}">2024-01-01</td>
                     <td th:text="${gasto.usuario.nombre}">Usuario</td>

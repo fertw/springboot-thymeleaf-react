@@ -6,56 +6,54 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.com.fcarmine.dto.UsuarioDTO;
 import ar.com.fcarmine.model.Usuario;
 import ar.com.fcarmine.repository.UsuarioRepository;
 import ar.com.fcarmine.servicio.UsuarioService;
 
-
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public List<UsuarioDTO> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Usuario> findAll() {
+		List<Usuario> usuarios = usuarioRepository.findAll();
+		return usuarios;
 	}
 
 	@Override
-	public UsuarioDTO findById(Long id) {
+	public Usuario findById(Long id) {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
 		return usuario.map(this::converToDto).orElse(null);
-		
+
 	}
 
 	@Override
-	public UsuarioDTO save(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario save(Usuario usuario) {
+		usuario = usuarioRepository.save(usuario);
+		return usuario;
 	}
 
 	@Override
-	public UsuarioDTO update(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario update(Usuario usuario) {
+		usuario = usuarioRepository.save(usuario);
+		return usuario;
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		usuarioRepository.deleteById(id);
 
 	}
 
-	private UsuarioDTO converToDto(Usuario usuario) {
-		UsuarioDTO usuarioDTO = new UsuarioDTO();
-		usuarioDTO.setId(usuario.getId());
-		usuarioDTO.setUsername(usuario.getUsername());
-		usuarioDTO.setApellido(usuario.getApellido());
-		usuarioDTO.setPassword(usuario.getPassword());
-		return usuarioDTO;
+	private Usuario converToDto(Usuario usuario) {
+		Usuario Usuario = new Usuario();
+		Usuario.setId(usuario.getId());
+		Usuario.setUsername(usuario.getUsername());
+		Usuario.setApellido(usuario.getApellido());
+		Usuario.setPassword(usuario.getPassword());
+		return Usuario;
 
 	}
 

@@ -1,6 +1,5 @@
 package ar.com.fcarmine.admin.vista;
 
-import ar.com.fcarmine.dto.GastoDTO;
 import ar.com.fcarmine.model.Gasto;
 import ar.com.fcarmine.servicio.GastoService;
 import ar.com.fcarmine.servicio.UsuarioService;
@@ -34,9 +33,9 @@ public class GastoController {
 
     @GetMapping
     public String listarGastos(Model model) {
-        List<GastoDTO> gastos = gastoService.findAll();
+        List<Gasto> gastos = gastoService.findAll();
         model.addAttribute("gastos", gastos);
-        return "gastos/lista"; // Asegúrate de que este nombre coincide con la ubicación de la plantilla
+        return "gastos/lista";
     }
 
     @GetMapping("/nuevo")
@@ -48,18 +47,24 @@ public class GastoController {
         return "gastos/formulario";
     }
 
+    
     @PostMapping
-    public String crearGasto(@Valid @ModelAttribute Gasto gasto, BindingResult result) {
+    public String crearGasto(@Valid @ModelAttribute Gasto gasto, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("usuarios", usuarioService.findAll());
+            model.addAttribute("metodosPago", metodoPagoService.findAll());
+            model.addAttribute("categorias", categoriaService.findAll());
             return "gastos/formulario";
         }
         gastoService.save(gasto);
         return "redirect:/gastos";
     }
 
+
+
     @GetMapping("/{id}/editar")
-    public String mostrarFormularioDeEditarGasto(@PathVariable Long id, Model model) {
-        GastoDTO gasto = gastoService.findById(id);
+    public String mostrarFormularioDeEditarGasto(@PathVariable("id") Long id, Model model) {
+        Gasto gasto = gastoService.findById(id);
         if (gasto == null) {
             return "redirect:/gastos";
         }
@@ -70,19 +75,23 @@ public class GastoController {
         return "gastos/formulario";
     }
 
+
     @PostMapping("/{id}/actualizar")
-    public String actualizarGasto(@PathVariable Long id, @Valid @ModelAttribute Gasto gasto, BindingResult result) {
+    public String actualizarGasto(@PathVariable Long id, @Valid @ModelAttribute Gasto gasto, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("usuarios", usuarioService.findAll());
+            model.addAttribute("metodosPago", metodoPagoService.findAll());
+            model.addAttribute("categorias", categoriaService.findAll());
             return "gastos/formulario";
         }
         gasto.setId(id);
         gastoService.update(gasto);
         return "redirect:/gastos";
     }
-
     @PostMapping("/{id}/eliminar")
-    public String eliminarGasto(@PathVariable Long id) {
+    public String eliminarGasto(@PathVariable("id") Long id) {
         gastoService.deleteById(id);
         return "redirect:/gastos";
     }
+
 }

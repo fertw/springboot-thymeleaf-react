@@ -1,17 +1,21 @@
 package ar.com.fcarmine.admin.vista;
 
-import ar.com.fcarmine.dto.MetodoPagoDTO;
-import ar.com.fcarmine.model.MetodoPago;
-import ar.com.fcarmine.servicio.MetodoPagoService;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
-import java.util.List;
+import ar.com.fcarmine.model.MetodoPago;
+import ar.com.fcarmine.servicio.MetodoPagoService;
 
 @Controller
 @RequestMapping("/metodosPago")
@@ -22,7 +26,7 @@ public class MetodoPagoController {
 
     @GetMapping
     public String listarMetodosPago(Model model) {
-        List<MetodoPagoDTO> metodosPago = metodoPagoService.findAll();
+        List<MetodoPago> metodosPago = metodoPagoService.findAll();
         model.addAttribute("metodosPago", metodosPago);
         return "metodosPago/lista";
     }
@@ -44,7 +48,7 @@ public class MetodoPagoController {
 
     @GetMapping("/{id}/editar")
     public String mostrarFormularioDeEditarMetodoPago(@PathVariable Long id, Model model) {
-        MetodoPagoDTO metodoPago = metodoPagoService.findById(id);
+        MetodoPago metodoPago = metodoPagoService.findById(id);
         if (metodoPago == null) {
             return "redirect:/metodosPago";
         }

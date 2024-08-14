@@ -1,4 +1,5 @@
 package ar.com.fcarmine;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,8 +14,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/", "/home", "/gastos", "/categorias", "/usuarios", "/css/**", "/js/**", "/images/**").permitAll()  // Permitir acceso sin autenticación a recursos estáticos
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()  // Permitir todas las solicitudes sin autenticación
             )
             .formLogin(formLogin -> formLogin
                 .loginPage("/login")  // Página de inicio de sesión personalizada

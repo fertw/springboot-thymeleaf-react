@@ -1,6 +1,5 @@
 package ar.com.fcarmine.admin.vista;
 
-import ar.com.fcarmine.dto.UsuarioDTO;
 import ar.com.fcarmine.model.Usuario;
 import ar.com.fcarmine.servicio.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class UsuarioController {
 
     @GetMapping
     public String listarUsuarios(Model model) {
-        List<UsuarioDTO> usuarios = usuarioService.findAll();
+        List<Usuario> usuarios = usuarioService.findAll(); // Cambiado a Usuario
         model.addAttribute("usuarios", usuarios);
         return "usuarios/lista";
     }
@@ -41,18 +40,8 @@ public class UsuarioController {
         return "redirect:/usuarios";
     }
 
-    @GetMapping("/{id}/editar")
-    public String mostrarFormularioDeEditarUsuario(@PathVariable Long id, Model model) {
-        UsuarioDTO usuario = usuarioService.findById(id);
-        if (usuario == null) {
-            return "redirect:/usuarios";
-        }
-        model.addAttribute("usuario", usuario);
-        return "usuarios/formulario";
-    }
-
     @PostMapping("/{id}/actualizar")
-    public String actualizarUsuario(@PathVariable Long id, @Valid @ModelAttribute Usuario usuario, BindingResult result) {
+    public String actualizarUsuario(@PathVariable("id") Long id, @Valid @ModelAttribute Usuario usuario, BindingResult result) {
         if (result.hasErrors()) {
             return "usuarios/formulario";
         }
@@ -60,10 +49,22 @@ public class UsuarioController {
         usuarioService.update(usuario);
         return "redirect:/usuarios";
     }
+    
+    @GetMapping("/{id}/editar")
+    public String mostrarFormularioDeEditarUsuario(@PathVariable("id") Long id, Model model) {
+        Usuario usuario = usuarioService.findById(id); // Cambiado a Usuario
+        if (usuario == null) {
+            return "redirect:/usuarios";
+        }
+        model.addAttribute("usuario", usuario);
+        return "usuarios/formulario";
+    }
+
 
     @PostMapping("/{id}/eliminar")
-    public String eliminarUsuario(@PathVariable Long id) {
+    public String eliminarUsuario(@PathVariable("id") Long id) {
         usuarioService.deleteById(id);
         return "redirect:/usuarios";
     }
+
 }
