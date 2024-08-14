@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.com.fcarmine.dto.CategoriaDTO;
 import ar.com.fcarmine.model.Categoria;
 import ar.com.fcarmine.repository.CategoriaRepository;
 import ar.com.fcarmine.servicio.CategoriaService;
@@ -19,28 +18,26 @@ public class CategoriaServiceImpl implements CategoriaService {
     private CategoriaRepository categoriaRepository;
 
     @Override
-    public List<CategoriaDTO> findAll() {
-        return categoriaRepository.findAll().stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    public List<Categoria> findAll() {
+        return categoriaRepository.findAll();
     }
 
     @Override
-    public CategoriaDTO findById(Long id) {
+    public Optional<Categoria> findById(Long id) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
-        return categoria.map(this::convertToDto).orElse(null);
+        return categoria;
     }
 
     @Override
-    public CategoriaDTO save(Categoria categoria) {
+    public Categoria save(Categoria categoria) {
         Categoria savedCategoria = categoriaRepository.save(categoria);
-        return convertToDto(savedCategoria);
+        return savedCategoria;
     }
 
     @Override
-    public CategoriaDTO update(Categoria categoria) {
+    public Categoria update(Categoria categoria) {
         Categoria updatedCategoria = categoriaRepository.save(categoria);
-        return convertToDto(updatedCategoria);
+        return updatedCategoria;
     }
 
     @Override
@@ -48,10 +45,10 @@ public class CategoriaServiceImpl implements CategoriaService {
         categoriaRepository.deleteById(id);
     }
 
-    private CategoriaDTO convertToDto(Categoria categoria) {
-        CategoriaDTO categoriaDTO = new CategoriaDTO();
-        categoriaDTO.setId(categoria.getId());
-        categoriaDTO.setNombre(categoria.getNombre());
-        return categoriaDTO;
+    private Categoria convertToDto(Categoria categoria) {
+        Categoria Categoria = new Categoria();
+        Categoria.setId(categoria.getId());
+        Categoria.setNombre(categoria.getNombre());
+        return Categoria;
     }
 }

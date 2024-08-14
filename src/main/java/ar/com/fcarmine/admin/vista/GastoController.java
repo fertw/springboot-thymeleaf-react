@@ -84,7 +84,6 @@ public class GastoController {
             model.addAttribute("categorias", categoriaService.findAll());
             return "gastos/formulario";
         }
-        gasto.setId(id);
         gastoService.update(gasto);
         return "redirect:/gastos";
     }
