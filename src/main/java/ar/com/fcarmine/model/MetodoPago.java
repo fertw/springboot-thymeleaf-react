@@ -61,21 +61,19 @@ public class MetodoPago {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(gastos, id, nombre);
+	public boolean equals(Object o) {
+	    if (this == o) return true;
+	    if (o == null || getClass() != o.getClass()) return false;
+	    MetodoPago metodoPago = (MetodoPago) o;
+	    return Objects.equals(id, metodoPago.id);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MetodoPago other = (MetodoPago) obj;
-		return Objects.equals(gastos, other.gastos) && Objects.equals(id, other.id)
-				&& Objects.equals(nombre, other.nombre);
+	public int hashCode() {
+	    return Objects.hash(id);
 	}
+
+	
+	
 
 }

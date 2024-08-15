@@ -1,6 +1,7 @@
 package ar.com.fcarmine.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -93,5 +94,19 @@ public class Gasto {
 		return "Gasto [id=" + id + ", descripcion=" + descripcion + ", monto=" + monto + ", fecha=" + fecha + ", usuario="
 				+ usuario + ", metodoPago=" + metodoPago + ", categoria=" + categoria + "]";
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+	    if (this == o) return true;
+	    if (o == null || getClass() != o.getClass()) return false;
+	    Gasto gasto = (Gasto) o;
+	    return Objects.equals(id, gasto.id);
+	}
+
+	@Override
+	public int hashCode() {
+	    return Objects.hash(id);
+	}
+
 
 }

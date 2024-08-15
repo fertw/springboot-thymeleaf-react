@@ -1,5 +1,6 @@
 package ar.com.fcarmine.model;
 
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -43,5 +44,19 @@ public class Categoria {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+	    if (this == o) return true;
+	    if (o == null || getClass() != o.getClass()) return false;
+	    Categoria categoria = (Categoria) o;
+	    return Objects.equals(id, categoria.id);
+	}
+
+	@Override
+	public int hashCode() {
+	    return Objects.hash(id);
+	}
+
 
 }

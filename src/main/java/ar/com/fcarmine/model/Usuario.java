@@ -78,22 +78,20 @@ public class Usuario {
 				+ apellido + "]";
 	}
 
+
+	
 	@Override
-	public int hashCode() {
-		return Objects.hash(apellido, nombre, password, username);
+	public boolean equals(Object o) {
+	    if (this == o) return true;
+	    if (o == null || getClass() != o.getClass()) return false;
+	    Usuario usuario = (Usuario) o;
+	    return Objects.equals(id, usuario.id);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		return Objects.equals(apellido, other.apellido) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(password, other.password) && Objects.equals(username, other.username);
+	public int hashCode() {
+	    return Objects.hash(id);
 	}
+
 
 }
