@@ -3,6 +3,8 @@ package ar.com.fcarmine.model;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +21,8 @@ public class Categoria {
 	private String nombre;
 
 	@OneToMany(mappedBy = "categoria")
-	private Set<Gasto> gastos;
+    @JsonManagedReference // Esta anotación gestiona la serialización hacia adelante
+    private Set<Gasto> gastos;
 
 	public Long getId() {
 		return id;

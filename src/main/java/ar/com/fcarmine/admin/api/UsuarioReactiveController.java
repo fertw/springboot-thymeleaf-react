@@ -45,14 +45,13 @@ public class UsuarioReactiveController {
 			return Mono.just(usuarioService.update(usuario));
 		}).map(updatedUsuario -> ResponseEntity.ok(updatedUsuario)).defaultIfEmpty(ResponseEntity.notFound().build());
 	}
-	
-	 @DeleteMapping("/{id}")
-	    public Mono<Void> eliminarUsuario(@PathVariable Long id) {
-	        return Mono.justOrEmpty(usuarioService.findById(id))
-	                   .flatMap(usuario -> {
-	                       usuarioService.deleteById(id);
-	                       return Mono.empty();
-	                   });
-	    }
+
+	@DeleteMapping("/{id}")
+	public Mono<Void> eliminarUsuario(@PathVariable Long id) {
+		return Mono.justOrEmpty(usuarioService.findById(id)).flatMap(usuario -> {
+			usuarioService.deleteById(id);
+			return Mono.empty();
+		});
+	}
 
 }

@@ -3,6 +3,9 @@ package ar.com.fcarmine.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +25,7 @@ public class Gasto {
 
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
+	@JsonManagedReference
 	private Usuario usuario;
 
 	@ManyToOne
@@ -30,6 +34,7 @@ public class Gasto {
 
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
+	@JsonBackReference // Esta anotación evita la referencia cíclica
 	private Categoria categoria;
 
 	public Categoria getCategoria() {
@@ -91,22 +96,23 @@ public class Gasto {
 
 	@Override
 	public String toString() {
-		return "Gasto [id=" + id + ", descripcion=" + descripcion + ", monto=" + monto + ", fecha=" + fecha + ", usuario="
-				+ usuario + ", metodoPago=" + metodoPago + ", categoria=" + categoria + "]";
+		return "Gasto [id=" + id + ", descripcion=" + descripcion + ", monto=" + monto + ", fecha=" + fecha
+				+ ", usuario=" + usuario + ", metodoPago=" + metodoPago + ", categoria=" + categoria + "]";
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-	    if (this == o) return true;
-	    if (o == null || getClass() != o.getClass()) return false;
-	    Gasto gasto = (Gasto) o;
-	    return Objects.equals(id, gasto.id);
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Gasto gasto = (Gasto) o;
+		return Objects.equals(id, gasto.id);
 	}
 
 	@Override
 	public int hashCode() {
-	    return Objects.hash(id);
+		return Objects.hash(id);
 	}
-
 
 }

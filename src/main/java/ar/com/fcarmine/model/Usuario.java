@@ -3,6 +3,8 @@ package ar.com.fcarmine.model;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +24,7 @@ public class Usuario {
 	private String apellido;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonBackReference
 	private Set<Gasto> gastos;
 
 	public Long getId() {
